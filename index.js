@@ -4,16 +4,16 @@ const os = require('os');
 const nodeStatic = require('node-static');
 const socketIO = require('socket.io');
 
-const http = require('http');
-// const fs = require('fs');
+const https = require('https');
+const fs = require('fs');
 
-// const options = {
-//   key: fs.readFileSync('./private.pem'),
-//   cert: fs.readFileSync('./public.pem')
-// };
+const options = {
+  key: fs.readFileSync('./private.pem'),
+  cert: fs.readFileSync('./public.pem')
+};
 
 const fileServer = new (nodeStatic.Server)();
-let app = http.createServer((req,res)=>{
+let app = https.createServer(options, (req,res)=>{
   fileServer.serve(req, res);
 }).listen(8080);
 
